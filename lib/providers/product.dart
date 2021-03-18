@@ -9,6 +9,7 @@ class Product with ChangeNotifier {
   final String description;
   final int sellingPrice;
   final String heroImage;
+  final String categoryId;
   var techspecs = [];
   bool isFeatured;
   bool newArrival;
@@ -20,6 +21,7 @@ class Product with ChangeNotifier {
     @required this.sellingPrice,
     @required this.heroImage,
     @required this.techspecs,
+    @required this.categoryId,
     this.isFeatured,
     this.newArrival,
   });

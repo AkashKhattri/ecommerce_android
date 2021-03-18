@@ -1,4 +1,6 @@
 import 'package:ecommerce/providers/category.dart';
+
+import 'package:ecommerce/screens/category_product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +12,10 @@ class CategoryItem extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).pushNamed(CategoryProductScreen.routeName,
+              arguments: category.id);
+        },
         child: GridTile(
           child: Container(
             height: 150,

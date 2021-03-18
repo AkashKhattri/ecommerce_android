@@ -12,16 +12,29 @@ class Categories with ChangeNotifier {
 
   Future<void> fetchAndSetCategories() async {
     List<dynamic> data;
+    List<dynamic> products;
     var url = 'https://backend.trishapta.com/api/categories';
+
     try {
       final response = await http.get(url);
+
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
-      final List<Category> loadedCategories = [];
+
+      List<Category> loadedCategories = [];
 
       if (extractedData == null) {
         return;
       }
       data = extractedData['categories'];
+
+      // if (products[5]['category'] != null) {
+      //   print('exists');
+      //   return;
+      // } else {
+      //   print('dont exist');
+      //   return;
+      // }
+
       data.forEach((catData) {
         loadedCategories.add(
           Category(
@@ -31,7 +44,9 @@ class Categories with ChangeNotifier {
           ),
         );
       });
+
       _items = loadedCategories;
+      print(_items.length);
 
       notifyListeners();
     } catch (error) {

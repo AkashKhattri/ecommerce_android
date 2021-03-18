@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
@@ -22,6 +23,10 @@ class Products with ChangeNotifier {
     return [..._items.where((feature) => feature.newArrival == true)];
   }
 
+  List<Product> filterCategory(catId) {
+    return [..._items.where((procat) => procat.categoryId == catId)];
+  }
+
   Future<void> fetchAndSetProducts() async {
     var url = "https://backend.trishapta.com/api/products/";
     try {
@@ -35,20 +40,26 @@ class Products with ChangeNotifier {
       data = extractedData['products'];
 
       data.forEach((prodData) {
-        loadedProducts.add(
-          Product(
-            id: prodData['_id'],
-            name: prodData['name'],
-            description: prodData['description'],
-            sellingPrice: prodData['sellingPrice'],
-            heroImage: 'https://demo.trishapta.com${prodData['hero_image']}',
-            techspecs: prodData['techincal'],
-            isFeatured: prodData['isFeatured'],
-            newArrival: prodData['newArrival'],
-          ),
-        );
+        if (prodData['category'] != null) {
+          loadedProducts.add(
+            Product(
+              id: prodData['_id'],
+              name: prodData['name'],
+              description: prodData['description'],
+              sellingPrice: prodData['sellingPrice'],
+              heroImage: 'https://demo.trishapta.com${prodData['hero_image']}',
+              techspecs: prodData['techincal'],
+              isFeatured: prodData['isFeatured'],
+              newArrival: prodData['newArrival'],
+              categoryId: prodData['category'] != null
+                  ? prodData['category']['_id']
+                  : null,
+            ),
+          );
+        }
       });
       _items = loadedProducts;
+
       notifyListeners();
     } catch (error) {
       throw (error);

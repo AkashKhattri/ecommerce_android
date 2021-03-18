@@ -47,7 +47,9 @@ class ProductDetailScreen extends StatelessWidget {
                   ? 'hero1-${loadedProduct.id}'
                   : (array[1] as String == 'new')
                       ? 'hero2-${loadedProduct.id}'
-                      : 'hero3-${loadedProduct.id}',
+                      : (array[1] as String == 'new')
+                          ? 'hero3-${loadedProduct.id}'
+                          : '${loadedProduct.id}',
               child: Image.network(
                 loadedProduct.heroImage,
                 fit: BoxFit.cover,

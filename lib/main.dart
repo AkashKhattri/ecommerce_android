@@ -1,4 +1,5 @@
 import 'package:ecommerce/providers/categories.dart';
+import 'package:ecommerce/screens/category_product_screen.dart';
 import 'package:ecommerce/screens/category_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
           ProductsOverviewScreen.routeName: (ctx) => ProductsOverviewScreen(),
           ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
           CategoryScreen.routeName: (ctx) => CategoryScreen(),
+          CategoryProductScreen.routeName: (ctx) => CategoryProductScreen(),
         },
       ),
     );
