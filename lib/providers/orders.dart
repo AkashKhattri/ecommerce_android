@@ -71,14 +71,14 @@ class Orders with ChangeNotifier {
   }
 
   Future<void> addOrder(
-      List<CartItem> cartProducts, double total, userid) async {
+      List<CartItem> cartProducts, double total, token) async {
     final url = 'https://backend.trishapta.com/api/orders';
     final timestamp = DateTime.now();
     final response = await http.post(
       url,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": 'Bearer $userid',
+        "Authorization": 'Bearer $token',
       },
       body: json.encode(
         {
@@ -102,10 +102,11 @@ class Orders with ChangeNotifier {
     _orders.insert(
       0,
       OrderItem(
-          id: json.decode(response.body)['name'],
-          amount: total,
-          dateTime: timestamp,
-          products: cartProducts),
+        id: json.decode(response.body)['name'],
+        amount: total,
+        dateTime: timestamp,
+        products: cartProducts,
+      ),
     );
     notifyListeners();
   }
