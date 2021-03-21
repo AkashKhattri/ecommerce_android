@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:ecommerce/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth.dart';
@@ -60,7 +61,7 @@ class AuthScreen extends StatelessWidget {
                         ],
                       ),
                       child: Text(
-                        'EduSarathi',
+                        'Ecommerce',
                         style: TextStyle(
                           color:
                               Theme.of(context).accentTextTheme.headline6.color,
@@ -175,6 +176,7 @@ class _AuthCardState extends State<AuthCard>
           _authData['email'],
           _authData['password'],
         );
+        Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
       } else {
         // Sign user up
         await Provider.of<Auth>(context, listen: false)

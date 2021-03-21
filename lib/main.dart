@@ -1,8 +1,14 @@
+import 'package:ecommerce/providers/cart.dart';
 import 'package:ecommerce/providers/categories.dart';
+import 'package:ecommerce/providers/orders.dart';
+import 'package:ecommerce/screens/auth_screen.dart';
+import 'package:ecommerce/screens/cart_screen.dart';
 import 'package:ecommerce/screens/category_product_screen.dart';
 import 'package:ecommerce/screens/category_screen.dart';
+import 'package:ecommerce/screens/order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ecommerce/providers/auth.dart';
 
 import 'package:ecommerce/screens/products_overview_screen.dart';
 import 'package:ecommerce/providers/carousals.dart';
@@ -24,6 +30,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (ctx) => Auth(),
+        ),
+        ChangeNotifierProvider(
           create: (ctx) => Products(),
         ),
         ChangeNotifierProvider(
@@ -32,8 +41,20 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => Categories(),
         ),
+        ChangeNotifierProvider(
+          create: (ctx) => Cart(),
+        ),
+        ChangeNotifierProxyProvider<Auth, Orders>(
+          create: (_) => null,
+          update: (ctx, auth, previousOrder) => Orders(
+            auth.token,
+            previousOrder == null ? [] : previousOrder.orders,
+            auth.userId,
+          ),
+        )
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Ecommerce',
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -46,6 +67,10 @@ class MyApp extends StatelessWidget {
           ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
           CategoryScreen.routeName: (ctx) => CategoryScreen(),
           CategoryProductScreen.routeName: (ctx) => CategoryProductScreen(),
+          CartScreen.routeName: (ctx) => CartScreen(),
+          OrderScreen.routeName: (ctx) => OrderScreen(),
+          AuthScreen.routeName: (ctx) => AuthScreen(),
+          HomeScreen.routeName: (ctx) => HomeScreen()
         },
       ),
     );

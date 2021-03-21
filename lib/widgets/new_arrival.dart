@@ -1,3 +1,4 @@
+import 'package:ecommerce/providers/cart.dart';
 import 'package:ecommerce/providers/products.dart';
 import 'package:ecommerce/screens/product_detail_screen.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ class NewArrival extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fProducts = Provider.of<Products>(context, listen: false).newArrival;
+    final cart = Provider.of<Cart>(context, listen: false);
 
     return Container(
       height: 250,
@@ -88,7 +90,26 @@ class NewArrival extends StatelessWidget {
                                 Text('Rs.${nItem.sellingPrice.toString()}'),
                                 GestureDetector(
                                   onTap: () {
-                                    print('I got added to cart');
+                                    cart.addItem(
+                                      nItem.id,
+                                      (nItem.sellingPrice).toDouble(),
+                                      nItem.name,
+                                      nItem.heroImage,
+                                    );
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text('Added item to cart!'),
+                                        duration: Duration(seconds: 2),
+                                        action: SnackBarAction(
+                                          label: 'UNDO',
+                                          onPressed: () {
+                                            cart.removeSingleItem(nItem.id);
+                                          },
+                                        ),
+                                      ),
+                                    );
                                   },
                                   child: Icon(
                                     Icons.shopping_basket_outlined,

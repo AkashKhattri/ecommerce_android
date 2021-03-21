@@ -1,4 +1,5 @@
 import 'package:ecommerce/screens/category_screen.dart';
+import 'package:ecommerce/screens/order_screen.dart';
 import 'package:ecommerce/screens/products_overview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,6 +49,13 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(
             thickness: 2,
+          ),
+          ListTile(
+            leading: Icon(Icons.credit_card),
+            title: Text('Orders'),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(OrderScreen.routeName);
+            },
           ),
           ListTile(
             leading: Icon(Icons.exit_to_app),

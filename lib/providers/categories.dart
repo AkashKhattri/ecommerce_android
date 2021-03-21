@@ -12,7 +12,7 @@ class Categories with ChangeNotifier {
 
   Future<void> fetchAndSetCategories() async {
     List<dynamic> data;
-    List<dynamic> products;
+
     var url = 'https://backend.trishapta.com/api/categories';
 
     try {

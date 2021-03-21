@@ -35,7 +35,7 @@ class Auth with ChangeNotifier {
     String email,
     String password,
   ) async {
-    final url = 'http://10.0.2.2:5000/api/subscribers/login';
+    final url = 'https://backend.trishapta.com/api/subscribers/login';
 
     try {
       final response = await http.post(
@@ -78,7 +78,7 @@ class Auth with ChangeNotifier {
     String email,
     String password,
   ) async {
-    final url = 'http://10.0.2.2:5000/api/subscribers';
+    final url = 'https://backend.trishapta.com/api/subscribers';
     try {
       final response = await http.post(
         url,
